@@ -6,6 +6,12 @@ const app = Vue.createApp({
       inputTask: "",
     };
   },
+  computed: {
+    toggleButtonCaption() {
+      if (this.showTasks) return "Hide";
+      else return "Show";
+    },
+  },
   methods: {
     addTask() {
       this.tasks.push(this.inputTask);
