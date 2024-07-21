@@ -1,7 +1,7 @@
 <template>
   <li>
     <h2>{{ name }}</h2>
-    <button @click="toggleFavorite">{{ friendIsFavorite ? 'Hide' : 'Show' }} Favorites</button>
+    <button @click="toggleFavorite">{{ isFavorite ? 'Hide' : 'Show' }} Favorites</button>
     <button @click="toggleDetails">{{ detailsAreVisible ? 'Hide' : 'Show' }} Details</button>
     <ul v-if="detailsAreVisible">
       <li>
@@ -35,12 +35,27 @@ export default {
       type: Boolean,
       required: false,
       default: false,
+    },
+    id: {
+      type: String,
+      required: true
     }
   },
+  emits: ['toggle-favorite'],
+  // emits: {
+  //   'toggle-favorite': (id) => {
+  //     if (id) {
+  //       return true;
+  //     }
+  //     else {
+  //       console.warn('Id is missing!')
+  //       return false
+  //     }
+  //   },
+  // },
   data() {
     return {
       detailsAreVisible: false,
-      friendIsFavorite: this.isFavorite
     };
   },
   methods: {
@@ -48,7 +63,7 @@ export default {
       this.detailsAreVisible = !this.detailsAreVisible;
     },
     toggleFavorite() {
-      this.friendIsFavorite = !this.friendIsFavorite
+      this.$emit('toggle-favorite', this.id)
     }
   }
 };
